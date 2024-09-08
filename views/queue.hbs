@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="stylesheets/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="icon" type="image/png" href="favicon.ico"/>
+</head>
+<body>
+    <div class="wave-header">
+        <!-- Wave Svg -->
+        <svg id="wave" style="transform:rotate(0deg); transition: 0.3s" viewBox="0 0 1440 490" version="1.1" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="sw-gradient-0" x1="0" x2="0" y1="1" y2="0"><stop stop-color="rgba(248, 238, 213, 1)" offset="0%"></stop><stop stop-color="rgba(255, 255, 255, 1)" offset="100%"></stop></linearGradient></defs><path style="transform:translate(0, 0px); opacity:1" fill="url(#sw-gradient-0)" d="M0,98L26.7,106.2C53.3,114,107,131,160,155.2C213.3,180,267,212,320,204.2C373.3,196,427,147,480,106.2C533.3,65,587,33,640,81.7C693.3,131,747,261,800,310.3C853.3,359,907,327,960,302.2C1013.3,278,1067,261,1120,220.5C1173.3,180,1227,114,1280,114.3C1333.3,114,1387,180,1440,204.2C1493.3,229,1547,212,1600,171.5C1653.3,131,1707,65,1760,32.7C1813.3,0,1867,0,1920,40.8C1973.3,82,2027,163,2080,220.5C2133.3,278,2187,310,2240,285.8C2293.3,261,2347,180,2400,196C2453.3,212,2507,327,2560,383.8C2613.3,441,2667,441,2720,400.2C2773.3,359,2827,278,2880,269.5C2933.3,261,2987,327,3040,302.2C3093.3,278,3147,163,3200,106.2C3253.3,49,3307,49,3360,89.8C3413.3,131,3467,212,3520,269.5C3573.3,327,3627,359,3680,383.8C3733.3,408,3787,425,3813,432.8L3840,441L3840,490L3813.3,490C3786.7,490,3733,490,3680,490C3626.7,490,3573,490,3520,490C3466.7,490,3413,490,3360,490C3306.7,490,3253,490,3200,490C3146.7,490,3093,490,3040,490C2986.7,490,2933,490,2880,490C2826.7,490,2773,490,2720,490C2666.7,490,2613,490,2560,490C2506.7,490,2453,490,2400,490C2346.7,490,2293,490,2240,490C2186.7,490,2133,490,2080,490C2026.7,490,1973,490,1920,490C1866.7,490,1813,490,1760,490C1706.7,490,1653,490,1600,490C1546.7,490,1493,490,1440,490C1386.7,490,1333,490,1280,490C1226.7,490,1173,490,1120,490C1066.7,490,1013,490,960,490C906.7,490,853,490,800,490C746.7,490,693,490,640,490C586.7,490,533,490,480,490C426.7,490,373,490,320,490C266.7,490,213,490,160,490C106.7,490,53,490,27,490L0,490Z"></path></svg>
+        <div class="wrapper py-5">
+          {{!-- Alert box --}}
+          {{!-- <div class="alert alert-danger mb-5" role="alert">Changes may take a few moments to appear. Please wait...</div> --}}
+            <!-- Queue Number  -->
+            <h1 class="display-4 fw-bold text-body-emphasis">Queue Number :</h1>
+            <!-- 20 -->
+            <h2 class="display-1 fw-bold text-body-emphasis opacity-50 mb-4" id="queueNumber">{{queueNumber}}</h2>
+            <!-- Estimated time -->
+            {{!-- <h3 class="mb-0 display-7 text-body-emphasis mb-2">Estimated Time :</h3> --}}
+            <!-- Photobooth No. -->
+            <h3 class="mb-0 display-7 text-body-emphasis mb-4" id="booth-num">Booth: {{boothNum}}</h3>
+            {{#if_cond name "==" "ADMIN"}}
+              <!-- Reset Button -->
+              <div class="col col-md-4 col-8 mx-auto">
+                  <button type="button" class="w-100 btn-lg btn btn-danger photobooth-button mb-4" id="reset-btn" onclick="boothConfirm('Are you sure want to reset the whole Queue? This action cannot be undone.', resetListener)">Reset</button>
+              </div>
+            {{else}}
+              <!-- Cancel Button -->
+              <div class="col col-md-4 col-8 mx-auto">
+                  <button type="button" class="w-100 btn-lg btn btn-danger photobooth-button mb-4" id="cancel-btn" onclick="boothConfirm('Are you sure want to cancel your timeslot? This will assign you to the last of queue.', cancelListener)">Cancel</button>
+              </div>  
+            {{/if_cond}}
+            <!-- Horizontal Line -->
+            <hr class="border-3 opacity-25 mb-5">
+            <!-- Name -->
+            <h3 class="display-6 mb-4" id="name">{{name}}</h3>
+            <!-- Has Select for Makeup / Hairdo -->
+            <div class="hairdo-makeup-checker mb-5">
+              <!-- Has Makeup -->
+              {{#if hasMakeup}}
+                <!-- Yes makeup -->
+                <h3>
+                  <span class="badge bg-success display-7 p-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
+                      <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425z"/>
+                    </svg>
+                    <span class="mx-2">Makeup</span>
+                  </span>
+                </h3>
+                {{else}}
+                <!-- No makeup -->
+                <h3>
+                  <span class="badge bg-secondary display-7 p-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                      <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
+                    </svg>
+                    <span class="mx-2">Makeup</span>
+                  </span>
+                </h3>
+              {{/if}}
+              <!-- Has Hairdo -->
+              {{#if hasHairdo}}
+                <!-- Yes Hairdo -->
+                <h3>
+                  <span class="badge bg-success display-7 p-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
+                      <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425z"/>
+                    </svg>
+                    <span class="mx-2">Hairdo</span>
+                  </span>
+                </h3>
+                {{else}}
+                <!-- No makeup -->
+                <h3>
+                  <span class="badge bg-secondary display-7 p-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                      <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
+                    </svg>
+                    <span class="mx-2">Hairdo</span>
+                  </span>
+                </h3>
+              {{/if}}
+            </div>
+            <!-- Photobooth No -->
+            <h2 class="display-6 fw-semibold mb-5 booth-headline">Photobooth</h2>
+            <div class="row row-cols-1 row-cols-lg-2 mb-3 text-center">
+                <!-- Photobooth 1 -->
+                <div class="col">
+                  <div class="card mb-4 rounded-3 shadow-sm">
+                    <div class="card-header py-3">
+                      <h4 class="my-0 fw-normal">Photobooth 1</h4>
+                    </div>
+                    <div class="card-body">
+                        <h2 class="display-1 fw-bold text-body-emphasis opacity-50" id="photoboothOneQueueNum">{{boothOneQueue}}</h2>
+                        <h5 class="mb-4 fw-normal opacity-75" id="photoboothOneName">{{boothOneName}}</h5>
+                      <button type="button" class="w-100 complete-btn" id="photoboothOneCompleteBtn" onclick="boothConfirm('Are you confirm that you have completed your photoshooth session?', photoboothOneListener)">Complete</button>
+                    </div>
+                  </div>
+                </div>
+                <!-- Photobooth 2 -->
+                <div class="col">
+                  <div class="card mb-4 rounded-3 shadow-sm">
+                    <div class="card-header py-3">
+                      <h4 class="my-0 fw-normal">Photobooth 2</h4>
+                    </div>
+                    <div class="card-body">
+                        <h2 class="display-1 fw-bold text-body-emphasis opacity-50" id="photoboothTwoQueueNum">{{boothTwoQueue}}</h2>
+                        <h5 class="mb-4 fw-normal opacity-75" id="photoboothTwoName">{{boothTwoName}}</h5>
+                      <button type="button" class="w-100 complete-btn" id="photoboothTwoCompleteBtn"onclick="boothConfirm('Are you confirm that you have completed your photoshooth session?', photoboothTwoListener)">Complete</button>
+                    </div>
+                  </div>
+                </div>
+                
+              </div>
+              <!-- Makeupbooth No -->
+            <h2 class="display-6 fw-semibold mb-5 booth-headline">Makeupbooth</h2>
+            <div class="row row-cols-1 row-cols-xxl-4 row-cols-lg-2 mb-3 text-center">
+                <!-- Makeup Booth 1 -->
+                <div class="col">
+                  <div class="card mb-4 rounded-3 shadow-sm">
+                    <div class="card-header py-3">
+                      <h4 class="my-0 fw-normal">Makeupbooth 1</h4>
+                    </div>
+                    <div class="card-body">
+                        <h2 class="display-1 fw-bold text-body-emphasis opacity-50" id="makeupboothOneQueueNum">{{boothThreeQueue}}</h2>
+                        <h5 class="mb-4 fw-normal opacity-75" id="makeupboothOneName">{{boothThreeName}}</h5>
+                      <button type="button" class="w-100 complete-btn" id="makeupboothOneCompleteBtn" onclick="boothConfirm('Are you confirm that you have completed your makeup session?', makeupboothOneListener)">Complete</button>
+                    </div>
+                  </div>
+                </div>
+                <!-- Makeup Booth 2 -->
+                <div class="col">
+                    <div class="card mb-4 rounded-3 shadow-sm">
+                      <div class="card-header py-3">
+                        <h4 class="my-0 fw-normal">Makeupbooth 2</h4>
+                      </div>
+                      <div class="card-body">
+                          <h2 class="display-1 fw-bold text-body-emphasis opacity-50" id="makeupboothTwoQueueNum">{{boothFourQueue}}</h2>
+                          <h5 class="mb-4 fw-normal opacity-75" id="makeupboothTwoName">{{boothFourName}}</h5>
+                        <button type="button" class="w-100 complete-btn" id="makeupboothTwoCompleteBtn" onclick="boothConfirm('Are you confirm that you have completed your makeup session?', makeupboothTwoListener)">Complete</button>
+                      </div>
+                    </div>
+                  </div>
+                <!-- Makeup Booth 3 -->
+                <div class="col">
+                    <div class="card mb-4 rounded-3 shadow-sm">
+                      <div class="card-header py-3">
+                        <h4 class="my-0 fw-normal">Makeupbooth 3</h4>
+                      </div>
+                      <div class="card-body">
+                          <h2 class="display-1 fw-bold text-body-emphasis opacity-50" id="makeupboothThreeQueueNum">{{boothFiveQueue}}</h2>
+                          <h5 class="mb-4 fw-normal opacity-75" id="makeupboothThreeName">{{boothFiveName}}</h5>
+                        <button type="button" class="w-100 complete-btn" id="makeupboothThreeCompleteBtn" onclick="boothConfirm('Are you confirm that you have completed your makeup session?', makeupboothThreeListener)">Complete</button>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Makeup Booth 4 -->
+                <div class="col">
+                    <div class="card mb-4 rounded-3 shadow-sm">
+                      <div class="card-header py-3">
+                        <h4 class="my-0 fw-normal">Makeupbooth 4</h4>
+                      </div>
+                      <div class="card-body">
+                          <h2 class="display-1 fw-bold text-body-emphasis opacity-50" id="makeupboothFourQueueNum">{{boothSixQueue}}</h2>
+                          <h5 class="mb-4 fw-normal opacity-75" id="makeupboothFourName">{{boothSixName}}</h5>
+                        <button type="button" class="w-100 complete-btn" id="makeupboothFourCompleteBtn" onclick="boothConfirm('Are you confirm that you have completed your makeup session?', makeupboothFourListener)">Complete</button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Confirmation Modal -->
+                  <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered">
+                          <div class="modal-content">
+                              <div class="modal-header">
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body bg-light text-dark">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="#FFC300" class="bi bi-exclamation-circle" viewBox="0 0 16 16">
+                                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                                  <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0M7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0z"/>
+                                </svg>
+                                <h5 class="modal-title mb-1 mt-3" id="confirmationModalLabel">Are you sure ?</h5>
+                                <p id="confirmationMessage">This action cannot be undone.</p>
+                              </div>
+                              <div class="modal-footer bg-light justify-content-center">
+                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                                <button type="button" class="btn btn-success" id="submitForm" data-bs-dismiss="modal">Yes, Confirm</button>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    {{!-- <script src="/socket.io/socket.io.js"></script> --}}
+    <script src="javascripts/updateBooth.js"></script>
+</body>
+</html>
+

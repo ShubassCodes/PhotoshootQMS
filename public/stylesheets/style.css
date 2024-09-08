@@ -1,0 +1,198 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+.wave-header{
+  min-height: 100vh;
+  width: 100%;
+  background: #fff;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.wave-header > svg{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.image-column > img{
+  width: 100%;
+  max-width: 400px;
+  padding-left: 40px;
+  /* height: 200px; */
+}
+
+.wrapper{
+  width: 70%;
+  text-align: center;
+  position: relative;
+}
+
+.wrapper .title{
+  line-height: 50px;
+}
+
+.login-form{
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  padding: 20px;
+  background-color: #ffff;
+  border-radius: 20px;
+  height: 75vh;
+  justify-content: center;
+  align-items: center;
+  justify-items: center;
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.1), 0 1px 10px 0 rgba(0, 0, 0, 0.19);
+}
+
+.input-column, .image-column {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.input-column{
+  text-align: start;
+  padding: 50px;
+  display: flex;
+  width: 85%;
+  justify-content: start;
+}
+
+.queue-button{
+  color: #fff;
+  background-color: #c3ab6d;
+  width: 100%;
+  border: #c3ab6d;
+  padding: 10px 0px;
+  border-radius: 20px;
+}
+
+.get-queue-button{
+  color: #fff;
+  background-color: #c3ab6d;
+  width: 100%;
+  border: #c3ab6d;
+  padding: 10px 20px;
+  border-radius: 20px;
+}
+
+.get-queue-button:hover, 
+.get-queue-button:focus, 
+.get-queue-button:active, 
+.get-queue-button.active, 
+.open .dropdown-toggle.get-queue-button { 
+color: #FFFFFF; 
+background-color: #d1c092; 
+border-color: #C3AB6D; 
+}
+
+.check-queue-button{
+  color: #c3ab6d;
+  background-color: #fff;
+  width: 100%;
+  border: 1px solid #c3ab6d;
+  padding: 10px 20px;
+  border-radius: 20px;
+}
+
+.check-queue-button:hover, 
+.check-queue-button:focus, 
+.check-queue-button:active, 
+.check-queue-button.active, 
+.open .dropdown-toggle.check-queue-button { 
+color: #FFFFFF; 
+background-color: #d1c092; 
+border-color: #C3AB6D; 
+}
+
+.complete-btn{
+  background-color: #C3AB6D;
+  padding: 0.5rem 1rem;
+  border: 1px solid #C3AB6D;
+  border-radius: 0.5rem;
+  font-size: 1.25rem;
+  color: #fff;
+}
+
+.complete-btn:disabled{
+  background-color: #d8c79c;
+}
+
+.booth-headline{
+  color: #a45c40;
+}
+
+.hairdo-makeup-checker{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Style the suggestions list */
+#suggestions {
+  position: absolute;
+  z-index: 1000;
+  width: 100%;
+  max-height: 150px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  overflow-y: auto;
+  display: none; /* Hidden by default */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  list-style-type: none;
+  padding-left: 0; /* Remove default padding */
+  margin-top: 5px;
+}
+
+/* Display the suggestions box */
+#suggestions.show {
+  display: block;
+}
+
+/* Style each suggestion item */
+.suggestion-item {
+  padding: 10px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+/* Highlight the suggestion on hover */
+.suggestion-item:hover {
+  background-color: #f5f5f5;
+}
+
+/* Hide Image after reaching certain threshold */
+@media (max-width: 1100px){
+  .image-column{
+      visibility: hidden;
+      width: 0px;
+      height: 0px;
+      padding: 0px;
+      margin: 0px;
+  }
+
+  .login-form{
+      display: grid;
+      grid-template-columns: auto;
+  }
+
+  .input-column{
+      width: 100%;
+      padding: 0px 10px;
+  }
+
+  .wrapper{
+      width: 80%;
+  }
+}
